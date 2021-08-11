@@ -84,6 +84,7 @@ class Ui_MainWindow(object):
                                    "    margin: 0px;"
                                    "    padding-top: -10px;"
                                    "    padding-bottom: 10px;"
+                                   "    padding-left: 3px;"
                                    "}")
 
         self.windows.setTabPosition(QtWidgets.QTabWidget.West)
@@ -386,8 +387,7 @@ class Ui_MainWindow(object):
         self.windows.setTabIcon(1, QtGui.QIcon('style/input.png'))
         self.windows.setTabIcon(2, QtGui.QIcon('style/output.png'))
         self.windows.setTabIcon(3, QtGui.QIcon('style/help.png'))
-        self.windows.setIconSize(QtCore.QSize(35, 35))
-        #self.windows.
+        self.windows.setIconSize(QtCore.QSize(30, 35))
 
         MainWindow.setCentralWidget(self.centralwidget)
 
