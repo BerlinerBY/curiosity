@@ -20,14 +20,14 @@ class Ui_MainWindow(object):
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.centralwidget.setStyleSheet("background-color: rgb(55, 59, 89);")
+        self.centralwidget.setStyleSheet("background-color: rgb(55, 60, 90);")
 
         """
         add hint-panel
         """
         self.hint = QtWidgets.QFrame(self.centralwidget)
         self.hint.setGeometry(0, 0, 802, 30)
-        self.hint.setStyleSheet("background: rgb(50, 50, 70);")
+        self.hint.setStyleSheet("background: rgb(55, 60, 90);")
 
         self.name_app = QtWidgets.QLabel(self.hint)
         self.name_app.setGeometry(20, 0, 100, 30)
@@ -54,7 +54,7 @@ class Ui_MainWindow(object):
                                            "   border-image: url('style/minimize2.png');"
                                            "}"
                                            "QPushButton:hover {"
-                                           "   background: rgb(100, 10, 10);"
+                                           "   background: rgb(70, 70, 90);"
                                            "   border-radius: 10px;"
                                            "}"
                                            )
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         self.windows.setEnabled(True)
         self.windows.setGeometry(
             QtCore.QRect(0, 30, 802, 602))  # i use 802 and 602 px, because i don`t know, to fix bug
-                                            # with white border of pages
+        # with white border of pages
         self.windows.setStyleSheet("QTabBar::tab { "
                                    "    width: 50px; "
                                    "    height: 50px; "
@@ -138,94 +138,139 @@ class Ui_MainWindow(object):
         page where hide-algorithm start
         """
         self.input = QtWidgets.QWidget()
-        self.input.setStyleSheet("QWidget {\n"
-                                 "    background-color: rgb(177, 40, 255);\n"
+        self.input.setStyleSheet("QWidget {"
+                                 "    background-color: rgb(35, 40, 70);"
                                  "}")
         self.input.setObjectName("input")
         self.windows.addTab(self.input, "")
 
         self.input_adress_file = QtWidgets.QLineEdit(self.input)
-        self.input_adress_file.setGeometry(30, 30, 270, 25)
+        self.input_adress_file.setGeometry(30, 30, 590, 45)
         self.input_adress_file.setPlaceholderText(" Please enter container address...")
         self.input_adress_file.setStyleSheet("QLineEdit {"
-                                             "    background-color: rgb(255, 170, 0);"
-                                             "    border: none;"
+                                             "  background-color: rgb(255, 170, 0);"
+                                             "  border-radius: 10px;"
+                                             "  font-size: 20px;"
                                              "}")
         self.input_adress_file.setObjectName("input_adress_file")
 
         self.clear_line_adress = QtWidgets.QPushButton(self.input)
-        self.clear_line_adress.setGeometry(QtCore.QRect(300, 30, 50, 25))
+        self.clear_line_adress.setGeometry(QtCore.QRect(625, 30, 45, 45))
         self.clear_line_adress.setStyleSheet("QPushButton {"
-                                             "  background-color: rgb(80, 100, 127);"
-                                             "  border: 2px solid rgb(250, 250, 250);"
+                                             "  border-image: url('style/trash_icon.png');"
+                                             "  border-radius: 20px;"
+                                             "  background-color: Transparent;"
                                              "}"
                                              "QPushButton:hover:!pressed {"
-                                             "  border: 2px solid rgb(100, 100, 100);"
-                                             "}"
-                                             "QPushButton:pressed {"
-                                             "  background: rgb(70, 100, 117);"
+                                             "  background: rgb(255, 170, 0);"
                                              "}")
         self.clear_line_adress.setObjectName("clear")
 
         self.open_file = QtWidgets.QPushButton(self.input)
-        self.open_file.setGeometry(QtCore.QRect(350, 30, 75, 25))
-        self.open_file.setStyleSheet("background-color: rgb(80, 100, 127);")
+        self.open_file.setGeometry(QtCore.QRect(675, 30, 45, 45))
+        self.open_file.setStyleSheet("QPushButton {"
+                                     "  border-image: url('style/archive_icon.png');"
+                                     "  border-radius: 20px;"
+                                     "  background-color: Transparent;"
+                                     "}"
+                                     "QPushButton:hover:!pressed {"
+                                     "  background: rgb(255, 170, 0);"
+                                     "}")
         self.open_file.setObjectName("open_file")
 
         self.input_save_adress_file = QtWidgets.QLineEdit(self.input)
-        self.input_save_adress_file.setGeometry(QtCore.QRect(30, 85, 270, 25))
+        self.input_save_adress_file.setGeometry(QtCore.QRect(30, 105, 590, 45))
         self.input_save_adress_file.setPlaceholderText(" Please enter a save address...")
-        self.input_save_adress_file.setStyleSheet("QLineEdit {\n"
-                                                  "    background-color: rgb(255, 170, 0);\n"
-                                                  "    border: None;\n"
+        self.input_save_adress_file.setStyleSheet("QLineEdit {"
+                                                  "  background-color: rgb(255, 170, 0);"
+                                                  "  border-radius: 10px;"
+                                                  "  font-size: 20px;"
                                                   "}")
         self.input_save_adress_file.setObjectName("input_save_adress_file")
 
         self.clear_save_line_adress = QtWidgets.QPushButton(self.input)
-        self.clear_save_line_adress.setGeometry(QtCore.QRect(300, 85, 50, 25))
-        self.clear_save_line_adress.setStyleSheet("background-color: rgb(80, 100, 127);")
+        self.clear_save_line_adress.setGeometry(QtCore.QRect(625, 105, 45, 45))
+        self.clear_save_line_adress.setStyleSheet("QPushButton {"
+                                                  "  border-image: url('style/trash_icon.png');"
+                                                  "  border-radius: 20px;"
+                                                  "  background-color: Transparent;"
+                                                  "}"
+                                                  "QPushButton:hover:!pressed {"
+                                                  "  background: rgb(255, 170, 0);"
+                                                  "}")
         self.clear_save_line_adress.setObjectName("clear")
 
         self.save_file = QtWidgets.QPushButton(self.input)
-        self.save_file.setGeometry(QtCore.QRect(350, 85, 75, 25))
-        self.save_file.setStyleSheet("background-color: rgb(80, 100, 127);")
+        self.save_file.setGeometry(QtCore.QRect(675, 105, 45, 45))
+        self.save_file.setStyleSheet("QPushButton {"
+                                     "  border-image: url('style/archive_icon.png');"
+                                     "  border-radius: 20px;"
+                                     "  background-color: Transparent;"
+                                     "}"
+                                     "QPushButton:hover:!pressed {"
+                                     "  background: rgb(255, 170, 0);"
+                                     "}")
         self.save_file.setObjectName("save_file")
 
         self.input_text = QtWidgets.QPlainTextEdit(self.input)
         self.input_text.setPlaceholderText("Please enter text...")
-        self.input_text.setGeometry(QtCore.QRect(450, 30, 270, 230))
+        self.input_text.setGeometry(QtCore.QRect(30, 180, 590, 120))
         self.input_text.setStyleSheet("QPlainTextEdit {"
-                                      "    background-color: rgb(255, 170, 0);"
-                                      "    border: None;"
+                                      "  background-color: rgb(255, 170, 0);"
+                                      "  border-radius: 10px;"
+                                      "  font-size: 20px;"
                                       "}")
         self.input_text.setObjectName("input_text")
 
         self.clear_input_text = QtWidgets.QPushButton(self.input)
-        self.clear_input_text.setGeometry(QtCore.QRect(450, 285, 125, 25))
-        self.clear_input_text.setStyleSheet("background-color: rgb(80, 100, 127);")
+        self.clear_input_text.setGeometry(QtCore.QRect(625, 180, 95, 120))
+        self.clear_input_text.setStyleSheet("QPushButton {"
+                                            #"  border-image: url('style/archive_icon.png');"
+                                            "  border-radius: 20px;"
+                                            "  background-color: Transparent;"
+                                            "}"
+                                            "QPushButton:hover:!pressed {"
+                                            "  background: rgb(255, 170, 0);"
+                                            "}")
+        self.clear_input_text.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.clear_input_text.setIconSize(QtCore.QSize(40, 40))
         self.clear_input_text.setObjectName("clear_button")
 
         self.hide_button = QtWidgets.QPushButton(self.input)
-        self.hide_button.setGeometry(QtCore.QRect(300, 140, 125, 25))
-        self.hide_button.setStyleSheet("background-color: rgb(0, 170, 127);")
+        self.hide_button.setGeometry(QtCore.QRect(625, 330, 95, 50))
+        self.hide_button.setStyleSheet("QPushButton {"
+                                       "    background: rgba(0, 0, 0, 0%);"
+                                       "    font-size: 20px;"
+                                       "    border-radius: 15px;"
+                                       "}"
+                                       "QPushButton:hover:!pressed {"
+                                       "    background-color: rgb(55, 60, 90);"
+                                       "}")
+        self.hide_button.setText("Hide")
+        self.hide_button.setIcon(QtGui.QIcon('style/hide_icon.png'))
         self.hide_button.setObjectName("hide")
 
         self.hide_progress = QtWidgets.QProgressBar(self.input)
-        self.hide_progress.setGeometry(30, 200, 390, 30)
-        self.hide_progress.setStyleSheet("background: rgb(28, 181,10);")
+        self.hide_progress.setGeometry(30, 330, 590, 50)
+        self.hide_progress.setStyleSheet("background: rgb(28, 181,10);"
+                                         "border-radius: 15px;")
         self.hide_progress.setObjectName("hide_progress")
 
         self.output_recovery_key = QtWidgets.QTextEdit(self.input)
-        self.output_recovery_key.setGeometry(QtCore.QRect(30, 350, 390, 30))
-        self.output_recovery_key.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.output_recovery_key.setObjectName("output_key")
+        self.output_recovery_key.setGeometry(QtCore.QRect(30, 410, 690, 45))
+        self.output_recovery_key.setStyleSheet("background-color: rgb(255, 255, 255);"
+                                               "border-radius: 15px;"
+                                               "font-size: 20px;")
         self.output_recovery_key.setPlaceholderText("Your recovery key...")
+        self.output_recovery_key.setObjectName("output_key")
 
         self.output_RSA_key = QtWidgets.QTextEdit(self.input)
-        self.output_RSA_key.setGeometry(QtCore.QRect(30, 410, 390, 30))
-        self.output_RSA_key.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.output_RSA_key.setObjectName("output_key")
+        self.output_RSA_key.setGeometry(QtCore.QRect(30, 490, 690, 45))
+        self.output_RSA_key.setStyleSheet("background-color: rgb(255, 255, 255);"
+                                          "border-radius: 15px;"
+                                          "font-size: 20px;")
         self.output_RSA_key.setPlaceholderText("Your RSA key...")
+        self.output_RSA_key.setObjectName("output_key")
 
         """
         page where recovery-algorithm start
@@ -261,7 +306,7 @@ class Ui_MainWindow(object):
         self.input_line_recovery_key = QtWidgets.QLineEdit(self.output)
         self.input_line_recovery_key.setGeometry(QtCore.QRect(30, 120, 320, 30))
         self.input_line_recovery_key.setStyleSheet("border-color: rgb(255, 85, 0);\n"
-                                                     "background-color: rgb(170, 85, 127);")
+                                                   "background-color: rgb(170, 85, 127);")
         self.input_line_recovery_key.setObjectName("input_line_key")
         self.input_line_recovery_key.setPlaceholderText(" Enter your recovery key...")
 
@@ -313,8 +358,8 @@ class Ui_MainWindow(object):
         self.recovery_Button = QtWidgets.QPushButton(self.output)
         self.recovery_Button.setGeometry(QtCore.QRect(300, 300, 125, 30))
         self.recovery_Button.setStyleSheet("background-color: rgb(0, 170, 127);\n"
-                                             "border-top-color: rgb(255, 170, 0);\n"
-                                             "")
+                                           "border-top-color: rgb(255, 170, 0);\n"
+                                           "")
         self.recovery_Button.setObjectName("recovery_Button")
 
         self.ending = QtWidgets.QTextEdit(self.output)
@@ -336,23 +381,17 @@ class Ui_MainWindow(object):
         self.windows.setTabIcon(1, QtGui.QIcon('style/input.png'))
         self.windows.setTabIcon(2, QtGui.QIcon('style/output.png'))
         self.windows.setTabIcon(3, QtGui.QIcon('style/help.png'))
+        self.windows.setIconSize(QtCore.QSize(35, 35))
 
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.windows.setCurrentIndex(2)  # не забыть поставить в конце работы 0
+        self.windows.setCurrentIndex(1)  # не забыть поставить в конце работы 0
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-
-        self.clear_line_adress.setText(_translate("MainWindow", "Clear"))
-        self.open_file.setText(_translate("MainWindow", "Chek file"))
-        self.clear_save_line_adress.setText(_translate("MainWindow", "Clear"))
-        self.save_file.setText(_translate("MainWindow", "Chek save"))
-        self.hide_button.setText(_translate("MainWindow", "Hide"))
-        self.clear_input_text.setText(_translate("MainWindow", "Clear"))
 
         self.clear_line_adress_Button.setText(_translate("MainWindow", "Clear"))
         self.input_adress_Button.setText(_translate("MainWindow", "Chek file"))
