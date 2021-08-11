@@ -11,7 +11,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -64,8 +63,9 @@ class Ui_MainWindow(object):
         # create areas with page
         self.windows = QtWidgets.QTabWidget(self.centralwidget)
         self.windows.setEnabled(True)
-        self.windows.setGeometry(QtCore.QRect(0, 30, 802, 602))  # i use 802 and 602 px, because i don`t know, to fix bug
-                                                                # with white border of pages
+        self.windows.setGeometry(
+            QtCore.QRect(0, 30, 802, 602))  # i use 802 and 602 px, because i don`t know, to fix bug
+        # with white border of pages
         self.windows.setStyleSheet("QTabBar::tab { "
                                    "    width: 50px; "
                                    "    height: 50px; "
@@ -87,23 +87,48 @@ class Ui_MainWindow(object):
         self.windows.setObjectName("windows")
 
         # start page
-        self.Home = QtWidgets.QWidget()
-        self.Home.setStyleSheet("QWidget {"
+        self.home = QtWidgets.QWidget()
+        self.home.setStyleSheet("QWidget {"
                                 "    background-image: url('style/space.jpg');"
                                 "    border: None;"
                                 "}"
                                 )
-        self.Home.setObjectName("Home")
-        self.windows.addTab(self.Home, "")
+        self.home.setObjectName("home")
+        self.windows.addTab(self.home, "")
 
+        self.welcom_lable = QtWidgets.QLabel(self.home)
+        self.welcom_lable.setText("Welcome to Curiosity")
+        self.welcom_lable.setGeometry(75, 120, 600, 100)
+        self.welcom_lable.setStyleSheet("QLabel {"
+                                        "   background: rgba(100, 100, 100, 30%);"
+                                        "   color: rgb(250, 250, 250);"
+                                        "   font-size: 40px;"
+                                        "   border-radius: 50px;"
+                                        "}"
+                                        )
+        self.welcom_lable.setAlignment(QtCore.Qt.AlignCenter)
 
-        self.button = QtWidgets.QPushButton(self.Home)
-        self.button.setGeometry(QtCore.QRect(50, 50, 50, 50))
-        self.button.setStyleSheet("background: rgb(150, 230, 50);"
-                                  "color: rgb(255,0,0);"
-                                  #"opacity: 80"
-                                  "")
-        self.button.setObjectName("button")
+        self.short_info = QtWidgets.QLabel(self.home)
+        self.short_info.setText("   This is a little program\n"
+                                "   It will help you protect your information")
+        self.short_info.setGeometry(115, 270, 520, 100)
+        self.short_info.setStyleSheet("QLabel {"
+                                      "   background: rgba(100, 100, 100, 30%);"
+                                      "   color: rgb(250, 250, 250);"
+                                      "   font-size: 25px;"
+                                      "   border-radius: 25px;"
+                                      "}"
+                                      )
+
+        self.created = QtWidgets.QLabel(self.home)
+        self.created.setText("Created: BerlinerBY")
+        self.created.setGeometry(620, 550, 130, 20)
+        self.created.setStyleSheet("QLabel {"
+                                   "   background: rgba(0, 0, 0, 0%);"
+                                   "   color: rgb(250, 250, 250);"
+                                   "   font-size: 15px;"
+                                   "}"
+                                   )
 
         # page where encrypt-algorithm start
         self.input = QtWidgets.QWidget()
@@ -145,12 +170,11 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
 
         ''' i don`t use names of button
-        self.windows.setTabText(self.windows.indexOf(self.Home), _translate("MainWindow", "Home"))
+        self.windows.setTabText(self.windows.indexOf(self.home), _translate("MainWindow", "Home"))
         self.windows.setTabText(self.windows.indexOf(self.input), _translate("MainWindow", "Input"))
         self.windows.setTabText(self.windows.indexOf(self.output), _translate("MainWindow", "Output"))
         self.windows.setTabText(self.windows.indexOf(self.support), _translate("MainWindow", "Support"))
         '''
-        self.button.setText(_translate("MainWindow", "button"))
 
 
 if __name__ == "__main__":
