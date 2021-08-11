@@ -237,6 +237,91 @@ class Ui_MainWindow(object):
         self.output.setObjectName("output")
         self.windows.addTab(self.output, "")
 
+        """адрес контейнера"""
+        self.input_line_adress = QtWidgets.QLineEdit(self.output)
+        self.input_line_adress.setGeometry(QtCore.QRect(30, 60, 270, 30))
+        self.input_line_adress.setStyleSheet("background-color: rgb(170, 85, 127);\n"
+                                             "border-color: rgb(255, 170, 0);")
+        self.input_line_adress.setObjectName("input_line_adress")
+        self.input_line_adress.setPlaceholderText(" Enter container adress...")
+
+        """кнопка отчистки адреса контейнера"""
+        self.clear_line_adress_Button = QtWidgets.QPushButton(self.output)
+        self.clear_line_adress_Button.setGeometry(QtCore.QRect(300, 60, 50, 30))
+        self.clear_line_adress_Button.setStyleSheet("background-color: rgb(80, 100, 127);")
+        self.clear_line_adress_Button.setObjectName("clear")
+
+        """кнопка открывающая мои документы для автоматического выбора файла"""
+        self.input_adress_Button = QtWidgets.QPushButton(self.output)
+        self.input_adress_Button.setGeometry(QtCore.QRect(350, 60, 75, 30))
+        self.input_adress_Button.setStyleSheet("background-color: rgb(80, 100, 127);")
+        self.input_adress_Button.setObjectName("input_adress_Button")
+
+        """поле для ввода ключа извлечения"""
+        self.input_line_recovery_key = QtWidgets.QLineEdit(self.output)
+        self.input_line_recovery_key.setGeometry(QtCore.QRect(30, 120, 320, 30))
+        self.input_line_recovery_key.setStyleSheet("border-color: rgb(255, 85, 0);\n"
+                                                     "background-color: rgb(170, 85, 127);")
+        self.input_line_recovery_key.setObjectName("input_line_key")
+        self.input_line_recovery_key.setPlaceholderText(" Enter your recovery key...")
+
+        """кнопка для отчистки поля с ключом извлечения"""
+        self.clear_line_recovery_key_Button = QtWidgets.QPushButton(self.output)
+        self.clear_line_recovery_key_Button.setGeometry(QtCore.QRect(350, 120, 75, 30))
+        self.clear_line_recovery_key_Button.setStyleSheet("background-color: rgb(80, 100, 127);")
+        self.clear_line_recovery_key_Button.setObjectName("clear_line_key")
+
+        """поле для ввода ключа RSA"""
+        self.input_line_RSA_key = QtWidgets.QLineEdit(self.output)
+        self.input_line_RSA_key.setGeometry(QtCore.QRect(30, 180, 320, 30))
+        self.input_line_RSA_key.setStyleSheet("border-color: rgb(255, 85, 0);\n"
+                                              "background-color: rgb(170, 85, 127);")
+        self.input_line_RSA_key.setObjectName("input_line_key")
+        self.input_line_RSA_key.setPlaceholderText(" Enter your RSA key...")
+
+        """кнопка для отчистки поля с ключом RSA"""
+        self.clear_line_RSA_key_Button = QtWidgets.QPushButton(self.output)
+        self.clear_line_RSA_key_Button.setGeometry(QtCore.QRect(350, 180, 75, 30))
+        self.clear_line_RSA_key_Button.setStyleSheet("background-color: rgb(80, 100, 127);")
+        self.clear_line_RSA_key_Button.setObjectName("clear_line_RSA_key")
+
+        """поле ввода адреса для сохранения информации"""
+        self.input_line_save_adress = QtWidgets.QLineEdit(self.output)
+        self.input_line_save_adress.setGeometry(QtCore.QRect(30, 240, 270, 30))
+        self.input_line_save_adress.setStyleSheet("border-color: rgb(255, 85, 0);\n"
+                                                  "background-color: rgb(170, 85, 127);")
+        self.input_line_save_adress.setObjectName("input_line_save_adress")
+        self.input_line_save_adress.setPlaceholderText(" Enter save-adress for container...")
+
+        """кнопка для выбора папки с инфой"""
+        self.input_save_adress_Button = QtWidgets.QPushButton(self.output)
+        self.input_save_adress_Button.setGeometry(QtCore.QRect(350, 240, 75, 30))
+        self.input_save_adress_Button.setStyleSheet("background-color: rgb(80, 100, 127);\n"
+                                                    "border-top-color: rgb(255, 170, 0);\n"
+                                                    "")
+        self.input_save_adress_Button.setObjectName("input_save_adress_Button")
+
+        """кнопка для отчистки поля с адресом сохранения"""
+        self.clear_line_save_adress_Button = QtWidgets.QPushButton(self.output)
+        self.clear_line_save_adress_Button.setGeometry(QtCore.QRect(300, 240, 50, 30))
+        self.clear_line_save_adress_Button.setStyleSheet("background-color: rgb(80, 100, 127);\n"
+                                                         "border-top-color: rgb(255, 170, 0);\n"
+                                                         "")
+        self.clear_line_save_adress_Button.setObjectName("clear_save_line")
+
+        """кнопка для запуска алгоритма"""
+        self.recovery_Button = QtWidgets.QPushButton(self.output)
+        self.recovery_Button.setGeometry(QtCore.QRect(300, 300, 125, 30))
+        self.recovery_Button.setStyleSheet("background-color: rgb(0, 170, 127);\n"
+                                             "border-top-color: rgb(255, 170, 0);\n"
+                                             "")
+        self.recovery_Button.setObjectName("recovery_Button")
+
+        self.ending = QtWidgets.QTextEdit(self.output)
+        self.ending.setGeometry(QtCore.QRect(30, 360, 395, 30))
+        self.ending.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.ending.setObjectName("ending")
+
         """
         page with help-info
         """
@@ -255,7 +340,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.windows.setCurrentIndex(1)  # не забыть поставить в конце работы 0
+        self.windows.setCurrentIndex(2)  # не забыть поставить в конце работы 0
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -268,6 +353,15 @@ class Ui_MainWindow(object):
         self.save_file.setText(_translate("MainWindow", "Chek save"))
         self.hide_button.setText(_translate("MainWindow", "Hide"))
         self.clear_input_text.setText(_translate("MainWindow", "Clear"))
+
+        self.clear_line_adress_Button.setText(_translate("MainWindow", "Clear"))
+        self.input_adress_Button.setText(_translate("MainWindow", "Chek file"))
+        self.input_save_adress_Button.setText(_translate("MainWindow", "Chek file"))
+        self.clear_line_save_adress_Button.setText(_translate("MainWindow", "Clear"))
+        self.clear_line_recovery_key_Button.setText(_translate("MainWindow", "Clear"))
+        self.clear_line_RSA_key_Button.setText(_translate("MainWindow", "Clear"))
+        self.recovery_Button.setText(_translate("MainWindow", "Recovery"))
+
 
 if __name__ == "__main__":
     import sys
