@@ -10,8 +10,9 @@ import RSA_encoder
 import RSA_decryptor
 import pretty_errors
 import time
+import carcass
 
-
+'''
 class Encrypt_window(QtWidgets.QMainWindow, encrypt_window.Ui_Curiosity_chipher):
     def __init__(self):
         super(Encrypt_window, self).__init__()
@@ -51,8 +52,8 @@ class Encrypt_window(QtWidgets.QMainWindow, encrypt_window.Ui_Curiosity_chipher)
         self.ui.input_adress_file.clear()
         self.ui.input_text.clear()
         self.ui.input_save_adress_file.clear()
-
-
+'''
+'''
 class Decryption_Window(QtWidgets.QMainWindow, decryption_window.Ui_Curiosity_decryption):
     def __init__(self):
         super(Decryption_Window, self).__init__()
@@ -96,8 +97,8 @@ class Decryption_Window(QtWidgets.QMainWindow, decryption_window.Ui_Curiosity_de
         self.ui.input_line_decryption_key.clear()
         self.ui.input_line_RSA_key.clear()
         self.ui.input_line_save_adress.clear()
-
-
+'''
+'''
 class Start_window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
     def __init__(self):
         super(Start_window, self).__init__()
@@ -121,7 +122,32 @@ class Start_window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
         self.close()
         self.decryption = Decryption_Window()
         self.decryption.show()
+'''
 
+class Start_window(QtWidgets.QMainWindow, carcass.Ui_MainWindow):
+    def __init__(self):
+        super(Start_window, self).__init__()
+        self.ui = carcass.Ui_MainWindow()
+        self.ui.setupUi(self)
+
+        self.ui.close_button.clicked.connect(lambda: self.close_window())
+        self.ui.minimize_button.clicked.connect(lambda: self.minimize_window())
+
+        self.oldPos = self.pos()
+
+    def close_window(self):
+        self.close()
+
+    def minimize_window(self):
+        self.showMinimized()
+
+    def mousePressEvent(self, event):  # functions for move window
+        self.oldPos = event.globalPos()
+
+    def mouseMoveEvent(self, event):  # -//-
+        delta = QtCore.QPoint(event.globalPos() - self.oldPos)
+        self.move(self.x() + delta.x(), self.y() + delta.y())
+        self.oldPos = event.globalPos()
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
