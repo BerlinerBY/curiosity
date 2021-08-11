@@ -68,32 +68,37 @@ class Ui_MainWindow(object):
         self.windows.setGeometry(
             QtCore.QRect(0, 30, 802, 602))  # i use 802 and 602 px, because i don`t know, to fix bug
         # with white border of pages
-        self.windows.setStyleSheet("QTabBar::tab { "
-                                   "    width: 50px; "
-                                   "    height: 50px; "
-                                   "    background: rgb(55, 59, 89);"
-                                   "}"
-                                   "QTabBar::tab:hover {"
+        self.windows.setStyleSheet("QTabBar::tab:hover {"
                                    "    background: rgb(100,100,100);"
-                                   "    border-radius: 20px;"
+                                   "    border-radius: 25px;"
                                    "}"
                                    "QTabBar::tab:selected {"
                                    "    background: rgb(250,250,250);"
-                                   "    border-radius: 20px;"
+                                   "    border-radius: 25px;"
                                    "}"
-                                   )
+                                   "QTabBar::tab {"
+                                   "    background: rgba(55, 59, 89, 0%);"
+                                   "    height: 50px;"
+                                   "    width: 50px;"
+                                   "    border: none;"
+                                   "    margin: 0px;"
+                                   "    padding-top: -10px;"
+                                   "    padding-bottom: 10px;"
+                                   "}")
 
         self.windows.setTabPosition(QtWidgets.QTabWidget.West)
         self.windows.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.windows.setTabBarAutoHide(False)  # i can delete this string, but i don`t use this function
         self.windows.setObjectName("windows")
 
+
+
         """
         start page
         """
         self.home = QtWidgets.QWidget()
         self.home.setStyleSheet("QWidget {"
-                                "    background-image: url('style/space.jpg');"
+                                "    background-image: url('style/space2.jpg');"
                                 "    border: None;"
                                 "}"
                                 )
@@ -225,7 +230,6 @@ class Ui_MainWindow(object):
         self.clear_input_text = QtWidgets.QPushButton(self.input)
         self.clear_input_text.setGeometry(QtCore.QRect(625, 180, 95, 120))
         self.clear_input_text.setStyleSheet("QPushButton {"
-                                            #"  border-image: url('style/archive_icon.png');"
                                             "  border-radius: 20px;"
                                             "  background-color: Transparent;"
                                             "}"
@@ -377,11 +381,13 @@ class Ui_MainWindow(object):
         self.support.setObjectName("support")
         self.windows.addTab(self.support, "")
 
+
         self.windows.setTabIcon(0, QtGui.QIcon('style/home-icon.png'))
         self.windows.setTabIcon(1, QtGui.QIcon('style/input.png'))
         self.windows.setTabIcon(2, QtGui.QIcon('style/output.png'))
         self.windows.setTabIcon(3, QtGui.QIcon('style/help.png'))
         self.windows.setIconSize(QtCore.QSize(35, 35))
+        #self.windows.
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -391,7 +397,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Curiosity"))
 
         self.clear_line_adress_Button.setText(_translate("MainWindow", "Clear"))
         self.input_adress_Button.setText(_translate("MainWindow", "Chek file"))
