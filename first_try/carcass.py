@@ -127,7 +127,7 @@ class Ui_MainWindow(object):
 
         self.created = QtWidgets.QLabel(self.home)
         self.created.setText("Created: BerlinerBY")
-        self.created.setGeometry(620, 550, 130, 20)
+        self.created.setGeometry(600, 540, 140, 20)
         self.created.setStyleSheet("QLabel {"
                                    "   background: rgba(0, 0, 0, 0%);"
                                    "   color: rgb(250, 250, 250);"
@@ -398,7 +398,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.windows.setCurrentIndex(2)  # не забыть поставить в конце работы 0
+        self.windows.setCurrentIndex(0)  # не забыть поставить в конце работы 0
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

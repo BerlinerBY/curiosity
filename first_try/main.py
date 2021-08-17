@@ -12,6 +12,7 @@ import pretty_errors
 import time
 import carcass
 
+
 '''
 class Encrypt_window(QtWidgets.QMainWindow, encrypt_window.Ui_Curiosity_chipher):
     def __init__(self):
