@@ -11,14 +11,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
-        MainWindow.setStyleSheet("border: None;")
-        MainWindow.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+class UiApplication(object):
+    def setupUi(self, Window):
+        Window.setObjectName("Window")
+        Window.resize(800, 600)
+        Window.setStyleSheet("border: None;")
+        Window.setWindowFlag(QtCore.Qt.FramelessWindowHint)
 
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget = QtWidgets.QWidget(Window)
         self.centralwidget.setObjectName("centralwidget")
         self.centralwidget.setStyleSheet("background-color: rgb(55, 60, 90);")
 
@@ -169,59 +169,65 @@ class Ui_MainWindow(object):
         self.input.setObjectName("input")
         self.windows.addTab(self.input, "")
 
-        self.input_adress_file = QtWidgets.QLineEdit(self.input)
-        self.input_adress_file.setGeometry(30, 30, 590, 45)
-        self.input_adress_file.setPlaceholderText("Please enter container address...")
-        self.input_adress_file.setStyleSheet(style_qlineedit)
-        self.input_adress_file.setObjectName("input_adress_file")
+        self.hide_path_to_container = QtWidgets.QLineEdit(self.input)
+        self.hide_path_to_container.setGeometry(30, 30, 590, 45)
+        self.hide_path_to_container.setPlaceholderText("Please enter container address...")
+        self.hide_path_to_container.setStyleSheet(style_qlineedit)
+        self.hide_path_to_container.setObjectName("hide_path_to_container")
 
-        self.clear_line_adress = QtWidgets.QPushButton(self.input)
-        self.clear_line_adress.setGeometry(QtCore.QRect(625, 30, 45, 45))
-        self.clear_line_adress.setStyleSheet(style_trash_button)
-        self.clear_line_adress.setIcon(QtGui.QIcon('style/trash_icon.png'))
-        self.clear_line_adress.setIconSize(QtCore.QSize(45, 45))
-        self.clear_line_adress.setObjectName("clear")
+        self.hide_clear_path = QtWidgets.QPushButton(self.input)
+        self.hide_clear_path.setGeometry(QtCore.QRect(625, 30, 45, 45))
+        self.hide_clear_path.setStyleSheet(style_trash_button)
+        self.hide_clear_path.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.hide_clear_path.setIconSize(QtCore.QSize(45, 45))
+        self.hide_clear_path.setObjectName("hide_clear_path ")
 
-        self.open_file = QtWidgets.QPushButton(self.input)
-        self.open_file.setGeometry(QtCore.QRect(675, 30, 45, 45))
-        self.open_file.setStyleSheet(style_archive_button)
-        self.open_file.setObjectName("open_file")
+        self.hide_open_container = QtWidgets.QPushButton(self.input)
+        self.hide_open_container.setGeometry(QtCore.QRect(675, 30, 45, 45))
+        self.hide_open_container.setStyleSheet(style_archive_button)
+        self.hide_open_container.setObjectName("hide_open_container")
 
-        self.input_save_adress_file = QtWidgets.QLineEdit(self.input)
-        self.input_save_adress_file.setGeometry(QtCore.QRect(30, 105, 590, 45))
-        self.input_save_adress_file.setPlaceholderText("Please enter a save address...")
-        self.input_save_adress_file.setStyleSheet(style_qlineedit)
-        self.input_save_adress_file.setObjectName("input_save_adress_file")
+        self.hide_save_of_file = QtWidgets.QLineEdit(self.input)
+        self.hide_save_of_file.setGeometry(QtCore.QRect(30, 105, 590, 45))
+        self.hide_save_of_file.setPlaceholderText("Please enter a save address...")
+        self.hide_save_of_file.setStyleSheet(style_qlineedit)
+        self.hide_save_of_file.setObjectName("hide_save_of_file")
 
-        self.clear_save_line_adress = QtWidgets.QPushButton(self.input)
-        self.clear_save_line_adress.setGeometry(QtCore.QRect(625, 105, 45, 45))
-        self.clear_save_line_adress.setStyleSheet(style_trash_button)
-        self.clear_save_line_adress.setIcon(QtGui.QIcon('style/trash_icon.png'))
-        self.clear_save_line_adress.setIconSize(QtCore.QSize(45, 45))
-        self.clear_save_line_adress.setObjectName("clear")
+        self.hide_clear_save_of_file = QtWidgets.QPushButton(self.input)
+        self.hide_clear_save_of_file.setGeometry(QtCore.QRect(625, 105, 45, 45))
+        self.hide_clear_save_of_file.setStyleSheet(style_trash_button)
+        self.hide_clear_save_of_file.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.hide_clear_save_of_file.setIconSize(QtCore.QSize(45, 45))
+        self.hide_clear_save_of_file.setObjectName("hide_clear_save_of_file")
 
-        self.save_file = QtWidgets.QPushButton(self.input)
-        self.save_file.setGeometry(QtCore.QRect(675, 105, 45, 45))
-        self.save_file.setStyleSheet(style_archive_button)
-        self.save_file.setObjectName("save_file")
+        self.hide_save_of_file_button = QtWidgets.QPushButton(self.input)
+        self.hide_save_of_file_button.setGeometry(QtCore.QRect(675, 105, 45, 45))
+        self.hide_save_of_file_button.setStyleSheet(style_archive_button)
+        self.hide_save_of_file_button.setObjectName("hide_save_of_file_button")
 
-        self.input_text = QtWidgets.QPlainTextEdit(self.input)
-        self.input_text.setPlaceholderText("Please enter text...")
-        self.input_text.setGeometry(QtCore.QRect(30, 180, 590, 120))
-        self.input_text.setStyleSheet("QPlainTextEdit {"
-                                      "    background-color: rgb(255, 170, 0);"
-                                      "    border-radius: 10px;"
-                                      "    font-size: 20px;"
-                                      "    padding-left: 10px;"
-                                      "}")
-        self.input_text.setObjectName("input_text")
+        self.hide_text = QtWidgets.QPlainTextEdit(self.input)
+        self.hide_text.setPlaceholderText("Please enter text...")
+        self.hide_text.setGeometry(QtCore.QRect(30, 180, 590, 120))
+        self.hide_text.setStyleSheet("QPlainTextEdit {"
+                                     "    background-color: rgb(255, 170, 0);"
+                                     "    border-radius: 10px;"
+                                     "    font-size: 20px;"
+                                     "    padding-left: 10px;"
+                                     "}")
+        self.hide_text.setObjectName("hide_text")
 
-        self.clear_input_text = QtWidgets.QPushButton(self.input)
-        self.clear_input_text.setGeometry(QtCore.QRect(625, 180, 95, 120))
-        self.clear_input_text.setStyleSheet(style_trash_button)
-        self.clear_input_text.setIcon(QtGui.QIcon('style/trash_icon.png'))
-        self.clear_input_text.setIconSize(QtCore.QSize(60, 60))
-        self.clear_input_text.setObjectName("clear_button")
+        self.hide_clear_text = QtWidgets.QPushButton(self.input)
+        self.hide_clear_text.setGeometry(QtCore.QRect(625, 180, 95, 120))
+        self.hide_clear_text.setStyleSheet(style_trash_button)
+        self.hide_clear_text.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.hide_clear_text.setIconSize(QtCore.QSize(60, 60))
+        self.hide_clear_text.setObjectName("hide_clear_text")
+
+        self.hide_progress = QtWidgets.QProgressBar(self.input)
+        self.hide_progress.setGeometry(30, 330, 590, 50)
+        self.hide_progress.setStyleSheet("background: rgb(28, 181,10);"
+                                         "border-radius: 15px;")
+        self.hide_progress.setObjectName("hide_progress")
 
         self.hide_button = QtWidgets.QPushButton(self.input)
         self.hide_button.setGeometry(QtCore.QRect(625, 330, 95, 50))
@@ -237,35 +243,29 @@ class Ui_MainWindow(object):
         self.hide_button.setIcon(QtGui.QIcon('style/hide_icon.png'))
         self.hide_button.setObjectName("hide")
 
-        self.hide_progress = QtWidgets.QProgressBar(self.input)
-        self.hide_progress.setGeometry(30, 330, 590, 50)
-        self.hide_progress.setStyleSheet("background: rgb(28, 181,10);"
-                                         "border-radius: 15px;")
-        self.hide_progress.setObjectName("hide_progress")
-
-        self.output_recovery_key = QtWidgets.QTextEdit(self.input)
-        self.output_recovery_key.setGeometry(QtCore.QRect(30, 410, 690, 45))
-        self.output_recovery_key.setStyleSheet("QTextEdit {"
+        self.hide_extraction_key = QtWidgets.QTextEdit(self.input)
+        self.hide_extraction_key.setGeometry(QtCore.QRect(30, 410, 690, 45))
+        self.hide_extraction_key.setStyleSheet("QTextEdit {"
                                                "    background-color: rgb(255, 255, 255);"
                                                "    border-radius: 15px;"
                                                "    font-size: 20px;"
-                                               "    padding-top: 5px;"
+                                               "    padding-top: 8px;"
                                                "    padding-left: 10px;"
                                                "}")
-        self.output_recovery_key.setPlaceholderText("Your recovery key...")
-        self.output_recovery_key.setObjectName("output_key")
+        self.hide_extraction_key.setPlaceholderText("Your recovery key...")
+        self.hide_extraction_key.setObjectName("hide_extraction_key")
 
-        self.output_RSA_key = QtWidgets.QTextEdit(self.input)
-        self.output_RSA_key.setGeometry(QtCore.QRect(30, 490, 690, 45))
-        self.output_RSA_key.setStyleSheet("QTextEdit {"
-                                          "    background-color: rgb(255, 255, 255);"
-                                          "    border-radius: 15px;"
-                                          "    font-size: 20px;"
-                                          "    padding-top: 5px;"
-                                          "    padding-left: 10px;"
-                                          "}")
-        self.output_RSA_key.setPlaceholderText(" Your RSA key...")
-        self.output_RSA_key.setObjectName("output_key")
+        self.hide_RSA_key = QtWidgets.QTextEdit(self.input)
+        self.hide_RSA_key.setGeometry(QtCore.QRect(30, 490, 690, 45))
+        self.hide_RSA_key.setStyleSheet("QTextEdit {"
+                                        "    background-color: rgb(255, 255, 255);"
+                                        "    border-radius: 15px;"
+                                        "    font-size: 20px;"
+                                        "    padding-top: 8px;"
+                                        "    padding-left: 10px;"
+                                        "}")
+        self.hide_RSA_key.setPlaceholderText(" Your RSA key...")
+        self.hide_RSA_key.setObjectName("hide_RSA_key")
 
         """
         page where recovery-algorithm start
@@ -282,77 +282,76 @@ class Ui_MainWindow(object):
         self.windows.addTab(self.output, "")
 
         """адрес контейнера"""
-        self.input_line_adress = QtWidgets.QLineEdit(self.output)
-        self.input_line_adress.setGeometry(QtCore.QRect(30, 30, 590, 45))
-        self.input_line_adress.setStyleSheet(style_qlineedit)
-        self.input_line_adress.setObjectName("input_line_adress")
-        self.input_line_adress.setPlaceholderText("Enter container adress...")
+        self.recovery_path_to_container = QtWidgets.QLineEdit(self.output)
+        self.recovery_path_to_container.setGeometry(QtCore.QRect(30, 30, 590, 45))
+        self.recovery_path_to_container.setStyleSheet(style_qlineedit)
+        self.recovery_path_to_container.setObjectName("recovery_path_to_container")
+        self.recovery_path_to_container.setPlaceholderText("Please enter container address...")
 
         """кнопка отчистки адреса контейнера"""
-        self.clear_line_adress_Button = QtWidgets.QPushButton(self.output)
-        self.clear_line_adress_Button.setGeometry(QtCore.QRect(625, 30, 45, 45))
-        self.clear_line_adress_Button.setStyleSheet(style_trash_button)
-        self.clear_line_adress_Button.setIcon(QtGui.QIcon('style/trash_icon.png'))
-        self.clear_line_adress_Button.setIconSize(QtCore.QSize(45, 45))
-        self.clear_line_adress_Button.setObjectName("clear")
+        self.recovery_clear_path = QtWidgets.QPushButton(self.output)
+        self.recovery_clear_path.setGeometry(QtCore.QRect(625, 30, 45, 45))
+        self.recovery_clear_path.setStyleSheet(style_trash_button)
+        self.recovery_clear_path.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.recovery_clear_path.setIconSize(QtCore.QSize(45, 45))
+        self.recovery_clear_path.setObjectName("recovery_clear_path")
 
         """кнопка открывающая мои документы для автоматического выбора файла"""
-        self.input_adress_Button = QtWidgets.QPushButton(self.output)
-        self.input_adress_Button.setGeometry(QtCore.QRect(675, 30, 45, 45))
-        self.input_adress_Button.setStyleSheet(style_archive_button)
-        self.input_adress_Button.setObjectName("input_adress_Button")
+        self.recovery_open_container = QtWidgets.QPushButton(self.output)
+        self.recovery_open_container.setGeometry(QtCore.QRect(675, 30, 45, 45))
+        self.recovery_open_container.setStyleSheet(style_archive_button)
+        self.recovery_open_container.setObjectName("recovery_open_container")
 
         """поле для ввода ключа извлечения"""
-        self.input_line_recovery_key = QtWidgets.QLineEdit(self.output)
-        self.input_line_recovery_key.setGeometry(QtCore.QRect(30, 105, 590, 45))
-        self.input_line_recovery_key.setStyleSheet(style_qlineedit)
-        self.input_line_recovery_key.setObjectName("input_line_key")
-        self.input_line_recovery_key.setPlaceholderText("Enter your recovery key...")
+        self.recovery_extraction_key = QtWidgets.QLineEdit(self.output)
+        self.recovery_extraction_key.setGeometry(QtCore.QRect(30, 105, 590, 45))
+        self.recovery_extraction_key.setStyleSheet(style_qlineedit)
+        self.recovery_extraction_key.setObjectName("recovery_extraction_key")
+        self.recovery_extraction_key.setPlaceholderText("Please enter your recovery key...")
 
         """кнопка для отчистки поля с ключом извлечения"""
-        self.clear_line_recovery_key_Button = QtWidgets.QPushButton(self.output)
-        self.clear_line_recovery_key_Button.setGeometry(QtCore.QRect(625, 105, 95, 45))
-        self.clear_line_recovery_key_Button.setStyleSheet(style_trash_button)
-        self.clear_line_recovery_key_Button.setIcon(QtGui.QIcon('style/trash_icon.png'))
-        self.clear_line_recovery_key_Button.setIconSize(QtCore.QSize(45, 45))
-        self.clear_line_recovery_key_Button.setObjectName("clear_line_key")
+        self.recovery_clear_extraction_key = QtWidgets.QPushButton(self.output)
+        self.recovery_clear_extraction_key.setGeometry(QtCore.QRect(625, 105, 95, 45))
+        self.recovery_clear_extraction_key.setStyleSheet(style_trash_button)
+        self.recovery_clear_extraction_key.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.recovery_clear_extraction_key.setIconSize(QtCore.QSize(45, 45))
+        self.recovery_clear_extraction_key.setObjectName("recovery_clear_extraction_key")
 
         """поле для ввода ключа RSA"""
-        self.input_line_RSA_key = QtWidgets.QLineEdit(self.output)
-        self.input_line_RSA_key.setGeometry(QtCore.QRect(30, 180, 590, 45))
-        self.input_line_RSA_key.setStyleSheet(style_qlineedit)
-        self.input_line_RSA_key.setObjectName("input_line_key")
-        self.input_line_RSA_key.setPlaceholderText("Enter your RSA key...")
+        self.recovery_RSA_key = QtWidgets.QLineEdit(self.output)
+        self.recovery_RSA_key.setGeometry(QtCore.QRect(30, 180, 590, 45))
+        self.recovery_RSA_key.setStyleSheet(style_qlineedit)
+        self.recovery_RSA_key.setObjectName("recovery_RSA_key")
+        self.recovery_RSA_key.setPlaceholderText("Please enter your RSA key...")
 
         """кнопка для отчистки поля с ключом RSA"""
-        self.clear_line_RSA_key_Button = QtWidgets.QPushButton(self.output)
-        self.clear_line_RSA_key_Button.setGeometry(QtCore.QRect(625, 180, 95, 45))
-        self.clear_line_RSA_key_Button.setStyleSheet(style_trash_button)
-        self.clear_line_RSA_key_Button.setIcon(QtGui.QIcon('style/trash_icon.png'))
-        self.clear_line_RSA_key_Button.setIconSize(QtCore.QSize(45, 45))
-        self.clear_line_RSA_key_Button.setObjectName("clear_line_RSA_key")
+        self.recovery_clear_RSA_key = QtWidgets.QPushButton(self.output)
+        self.recovery_clear_RSA_key.setGeometry(QtCore.QRect(625, 180, 95, 45))
+        self.recovery_clear_RSA_key.setStyleSheet(style_trash_button)
+        self.recovery_clear_RSA_key.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.recovery_clear_RSA_key.setIconSize(QtCore.QSize(45, 45))
+        self.recovery_clear_RSA_key.setObjectName("recovery_clear_RSA_key")
 
         """поле ввода адреса для сохранения информации"""
-
-        self.input_line_save_adress = QtWidgets.QLineEdit(self.output)
-        self.input_line_save_adress.setGeometry(QtCore.QRect(30, 255, 590, 45))
-        self.input_line_save_adress.setStyleSheet(style_qlineedit)
-        self.input_line_save_adress.setObjectName("input_line_save_adress")
-        self.input_line_save_adress.setPlaceholderText("Enter save-adress for container...")
+        self.recovery_save_of_file = QtWidgets.QLineEdit(self.output)
+        self.recovery_save_of_file.setGeometry(QtCore.QRect(30, 255, 590, 45))
+        self.recovery_save_of_file.setStyleSheet(style_qlineedit)
+        self.recovery_save_of_file.setObjectName("recovery_save_of_file")
+        self.recovery_save_of_file.setPlaceholderText("Please enter save-address for container...")
 
         """кнопка для отчистки поля с адресом сохранения"""
-        self.clear_line_save_adress_Button = QtWidgets.QPushButton(self.output)
-        self.clear_line_save_adress_Button.setGeometry(QtCore.QRect(625, 255, 45, 45))
-        self.clear_line_save_adress_Button.setStyleSheet(style_trash_button)
-        self.clear_line_save_adress_Button.setIcon(QtGui.QIcon('style/trash_icon.png'))
-        self.clear_line_save_adress_Button.setIconSize(QtCore.QSize(45, 45))
-        self.clear_line_save_adress_Button.setObjectName("clear_save_line")
+        self.recovery_clean_save_of_file = QtWidgets.QPushButton(self.output)
+        self.recovery_clean_save_of_file.setGeometry(QtCore.QRect(625, 255, 45, 45))
+        self.recovery_clean_save_of_file.setStyleSheet(style_trash_button)
+        self.recovery_clean_save_of_file.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.recovery_clean_save_of_file.setIconSize(QtCore.QSize(45, 45))
+        self.recovery_clean_save_of_file.setObjectName("recovery_clean_save_of_file")
 
         """кнопка для выбора папки с инфой"""
-        self.input_save_adress_Button = QtWidgets.QPushButton(self.output)
-        self.input_save_adress_Button.setGeometry(QtCore.QRect(675, 255, 45, 45))
-        self.input_save_adress_Button.setStyleSheet(style_archive_button)
-        self.input_save_adress_Button.setObjectName("input_save_adress_Button")
+        self.recovery_open_file = QtWidgets.QPushButton(self.output)
+        self.recovery_open_file.setGeometry(QtCore.QRect(675, 255, 45, 45))
+        self.recovery_open_file.setStyleSheet(style_archive_button)
+        self.recovery_open_file.setObjectName("recovery_open_file")
 
         """кнопка для запуска алгоритма"""
         self.recovery_Button = QtWidgets.QPushButton(self.output)
@@ -362,22 +361,22 @@ class Ui_MainWindow(object):
                                            "")
         self.recovery_Button.setObjectName("recovery_Button")
 
-        self.hide_progress = QtWidgets.QProgressBar(self.output)
-        self.hide_progress.setGeometry(30, 410, 690, 50)
-        self.hide_progress.setStyleSheet("background: rgb(28, 181,10);"
-                                         "border-radius: 15px;")
-        self.hide_progress.setObjectName("hide_progress")
+        self.recovery_progress = QtWidgets.QProgressBar(self.output)
+        self.recovery_progress.setGeometry(30, 410, 690, 50)
+        self.recovery_progress.setStyleSheet("background: rgb(28, 181,10);"
+                                             "border-radius: 15px;")
+        self.recovery_progress.setObjectName("recovery_progress")
 
-        self.ending = QtWidgets.QTextEdit(self.output)
-        self.ending.setGeometry(QtCore.QRect(30, 490, 690, 50))
-        self.ending.setStyleSheet("QTextEdit {"
-                                  "    background-color: rgb(255, 255, 255);"
-                                  "    border-radius: 15px;"
-                                  "    font-size: 20px;"
-                                  "    padding-top: 8px;"
-                                  "    padding-left: 10px;"
-                                  "}")
-        self.ending.setObjectName("ending")
+        self.notification = QtWidgets.QTextEdit(self.output)
+        self.notification.setGeometry(QtCore.QRect(30, 490, 690, 50))
+        self.notification.setStyleSheet("QTextEdit {"
+                                        "    background-color: rgb(255, 255, 255);"
+                                        "    border-radius: 15px;"
+                                        "    font-size: 20px;"
+                                        "    padding-top: 8px;"
+                                        "    padding-left: 10px;"
+                                        "}")
+        self.notification.setObjectName("notification")
 
         """
         page with help-info
@@ -395,25 +394,25 @@ class Ui_MainWindow(object):
         self.windows.setTabIcon(3, QtGui.QIcon('style/information.png'))
         self.windows.setIconSize(QtCore.QSize(30, 35))
 
-        MainWindow.setCentralWidget(self.centralwidget)
+        Window.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(Window)
         self.windows.setCurrentIndex(0)  # не забыть поставить в конце работы 0
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(Window)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, Window):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Curiosity"))
+        Window.setWindowTitle(_translate("Window", "Curiosity"))
 
-        self.recovery_Button.setText(_translate("MainWindow", "Recovery"))
+        self.recovery_Button.setText(_translate("Window", "Recovery"))
 
 
 if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    Window = QtWidgets.QMainWindow()
+    ui = UiApplication()
+    ui.setupUi(Window)
+    Window.show()
     sys.exit(app.exec_())

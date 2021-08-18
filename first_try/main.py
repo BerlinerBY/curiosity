@@ -1,3 +1,4 @@
+import os
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
@@ -13,47 +14,6 @@ import time
 import carcass
 
 
-'''
-class Encrypt_window(QtWidgets.QMainWindow, encrypt_window.Ui_Curiosity_chipher):
-    def __init__(self):
-        super(Encrypt_window, self).__init__()
-        self.ui = encrypt_window.Ui_Curiosity_chipher()
-        self.ui.setupUi(self)
-
-        self.setWindowIcon(QIcon('wheel.png'))
-
-        self.ui.clear_line_adress.clicked.connect(lambda: self.clear_line_adress())
-        self.ui.clear_input_text.clicked.connect(lambda: self.clear_line_text())
-        self.ui.clear_save_line_adress.clicked.connect(lambda: self.clear_save_line_adress())
-        self.ui.encrypt_button.clicked.connect(lambda: self.run_encrypt_script())
-
-    def clear_line_adress(self):
-        self.ui.input_adress_file.clear()
-
-    def clear_line_text(self):
-        self.ui.input_text.clear()
-
-    def clear_save_line_adress(self):
-        self.ui.input_save_adress_file.clear()
-
-    def run_encrypt_script(self):
-        adress = self.ui.input_adress_file.text()
-        print("1, time: ", time.time())
-        text = self.ui.input_text.toPlainText()
-        print("2, time: ", time.time())
-        save_adress = self.ui.input_save_adress_file.text()
-        print("3, time: ", time.time())
-        encrypt_rsa_text, rsa_key = RSA_encoder.RSA(text)
-        print("4, time: ", time.time())
-        output_your_key = try_2.encrypt('%s' % (adress), '%s' % (encrypt_rsa_text), '%s' % (save_adress))
-        print("5, time: ", time.time())
-        self.ui.output_decryption_key.setText(str(output_your_key))
-        self.ui.output_RSA_key.setText(str(rsa_key))
-
-        self.ui.input_adress_file.clear()
-        self.ui.input_text.clear()
-        self.ui.input_save_adress_file.clear()
-'''
 '''
 class Decryption_Window(QtWidgets.QMainWindow, decryption_window.Ui_Curiosity_decryption):
     def __init__(self):
@@ -99,42 +59,123 @@ class Decryption_Window(QtWidgets.QMainWindow, decryption_window.Ui_Curiosity_de
         self.ui.input_line_RSA_key.clear()
         self.ui.input_line_save_adress.clear()
 '''
-'''
-class Start_window(QtWidgets.QMainWindow, main_menu.Ui_MainWindow):
+
+
+class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
     def __init__(self):
-        super(Start_window, self).__init__()
-        self.ui = main_menu.Ui_MainWindow()
-        self.ui.setupUi(self)
-
-        self.setWindowIcon(QtGui.QIcon('wheel.png'))
-
-        self.encrypt = None
-        self.ui.encrypt_button.clicked.connect(lambda: self.call_encrypt_window())
-
-        self.decryption = None
-        self.ui.decryption_button.clicked.connect(lambda: self.call_decryption_window())
-
-    def call_encrypt_window(self):
-        self.close()
-        self.encrypt = Encrypt_window()
-        self.encrypt.show()
-
-    def call_decryption_window(self):
-        self.close()
-        self.decryption = Decryption_Window()
-        self.decryption.show()
-'''
-
-class Start_window(QtWidgets.QMainWindow, carcass.Ui_MainWindow):
-    def __init__(self):
-        super(Start_window, self).__init__()
-        self.ui = carcass.Ui_MainWindow()
+        super(AppCore, self).__init__()
+        self.ui = carcass.UiApplication()
         self.ui.setupUi(self)
 
         self.ui.close_button.clicked.connect(lambda: self.close_window())
         self.ui.minimize_button.clicked.connect(lambda: self.minimize_window())
 
         self.oldPos = self.pos()
+
+        # buttons of clear line
+        self.ui.hide_clear_path.clicked.connect(lambda: self.clear_hide_path_to_container())
+        self.ui.hide_clear_save_of_file.clicked.connect(lambda: self.clear_hide_save_of_file())
+        self.ui.hide_clear_text.clicked.connect(lambda: self.clear_hide_text())
+        self.ui.recovery_clear_path.clicked.connect(lambda: self.clear_recovery_path_to_container())
+        self.ui.recovery_clear_extraction_key.clicked.connect(lambda: self.clear_recovery_extraction_key())
+        self.ui.recovery_clear_RSA_key.clicked.connect(lambda: self.clear_recovery_rsa_key())
+        self.ui.recovery_clean_save_of_file.clicked.connect(lambda: self.clear_recovery_save_of_file())
+
+        # buttons of file-dialog
+        self.ui.hide_open_container.clicked.connect(lambda: self.hide_open_container())
+        self.ui.hide_save_of_file_button.clicked.connect(lambda: self.hide_save_of_container())
+        self.ui.recovery_open_container.clicked.connect(lambda: self.recovery_open_container())
+        self.ui.recovery_open_file.clicked.connect(lambda: self.recovery_save_of_container())
+
+        self.ui.hide_button.clicked.connect(lambda: self.start_hide())
+
+    def start_hide(self):
+        start_time = time.time()
+        path = self.ui.hide_path_to_container.text()
+        save_path = self.ui.hide_save_of_file.text()
+        message = self.ui.hide_text.toPlainText()
+
+        print("Create")
+        print(time.time()-start_time)
+        encrypt_rsa_text, rsa_key = RSA_encoder.RSA(message)
+        print("RSA")
+        print(time.time() - start_time)
+        extraction_key = try_2.encrypt('%s' % path, '%s' % encrypt_rsa_text, '%s' % save_path)
+        print("Encrypt")
+        print(time.time() - start_time)
+
+        self.ui.hide_extraction_key.setText(str(extraction_key))
+        self.ui.hide_RSA_key.setText(str(rsa_key))
+
+        self.ui.hide_path_to_container.clear()
+        # self.ui.hide_save_of_file.clear()
+        self.ui.hide_text.clear()
+        print("Finish")
+        print(time.time() - start_time)
+
+    def hide_open_container(self):
+        options = QtWidgets.QFileDialog.Options()
+        # options |= QtWidgets.QFileDialog.DontUseNativeDialog
+        file_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Find container", "", "Image Files(*.png *.jpg)", options=options)
+        if file_path:
+            print(file_path)
+            self.ui.hide_path_to_container.setText(file_path)
+
+    def hide_save_of_container(self):
+        options = QtWidgets.QFileDialog.Options()
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
+        file_path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", "", "Image Files(*.png)",
+                                                             options=options)
+        if file_path:
+            print(file_path)
+            if '.png' in file_path:
+                self.ui.hide_save_of_file.setText(file_path)
+            else:
+                file_path = file_path + '.png'
+                self.ui.hide_save_of_file.setText(file_path)
+
+    def recovery_open_container(self):
+        options = QtWidgets.QFileDialog.Options()
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
+        file_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Find container", "", "Image Files(*.png *.jpg)",
+                                                             options=options)
+        if file_path:
+            print(file_path)
+            self.ui.recovery_path_to_container.setText(file_path)
+
+    def recovery_save_of_container(self):
+        options = QtWidgets.QFileDialog.Options()
+        options |= QtWidgets.QFileDialog.DontUseNativeDialog
+        file_path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", "", "Image Files(*.png *.jpg)",
+                                                             options=options)
+        if file_path:
+            print(file_path)
+            if ".txt" in file_path:
+                self.ui.recovery_save_of_file.setText(file_path)
+            else:
+                file_path = file_path + ".txt"
+                self.ui.recovery_save_of_file.setText(file_path)
+
+    def clear_hide_path_to_container(self):
+        self.ui.hide_path_to_container.clear()
+
+    def clear_hide_save_of_file(self):
+        self.ui.hide_save_of_file.clear()
+
+    def clear_hide_text(self):
+        self.ui.hide_text.clear()
+
+    def clear_recovery_path_to_container(self):
+        self.ui.recovery_path_to_container.clear()
+
+    def clear_recovery_extraction_key(self):
+        self.ui.recovery_extraction_key.clear()
+
+    def clear_recovery_rsa_key(self):
+        self.ui.recovery_RSA_key.clear()
+
+    def clear_recovery_save_of_file(self):
+        self.ui.recovery_save_of_file.clear()
 
     def close_window(self):
         self.close()
@@ -150,9 +191,10 @@ class Start_window(QtWidgets.QMainWindow, carcass.Ui_MainWindow):
         self.move(self.x() + delta.x(), self.y() + delta.y())
         self.oldPos = event.globalPos()
 
+
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    application = Start_window()
+    application = AppCore()
     application.show()
 
     sys.exit(app.exec_())
