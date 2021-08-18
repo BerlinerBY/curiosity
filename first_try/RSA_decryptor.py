@@ -34,6 +34,7 @@ def decryption(rsa_key, text, save_adress):
     array = []
 
     for elem in mass:
+        print(str(pow(int(elem), d, mod))[1:])
         array.append(str(pow(int(elem), d, mod))[1:])
 
     text = "".join(array)
