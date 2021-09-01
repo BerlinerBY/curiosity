@@ -1,17 +1,13 @@
 import os
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QIcon
-import main_menu
-import encrypt_window
-import decryption_window
-import try_2
-import decode_try_2
+from PyQt5 import QtCore, QtWidgets, QtGui
+import carcass
+import hide_script
+import recovery_script
 import RSA_encoder
 import RSA_decryptor
 import pretty_errors
 import time
-import carcass
 
 
 class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
@@ -40,6 +36,7 @@ class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
         self.ui.recovery_open_container.clicked.connect(lambda: self.recovery_open_container())
         self.ui.recovery_open_file.clicked.connect(lambda: self.recovery_save_of_container())
 
+        # buttons of run script
         self.ui.hide_button.clicked.connect(lambda: self.start_hide())
         self.ui.recovery_Button.clicked.connect(lambda: self.start_recovery())
 
@@ -49,7 +46,7 @@ class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
         message = self.ui.hide_text.toPlainText()
 
         encrypt_rsa_text, rsa_key = RSA_encoder.RSA(message)
-        extraction_key = try_2.encrypt('%s' % path, '%s' % encrypt_rsa_text, '%s' % save_path)
+        extraction_key = hide_script.encrypt('%s' % path, '%s' % encrypt_rsa_text, '%s' % save_path)
 
         self.ui.hide_extraction_key.setText(str(extraction_key))
         self.ui.hide_RSA_key.setText(str(rsa_key))
@@ -63,7 +60,7 @@ class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
         rsa_key = self.ui.recovery_RSA_key.text()
         save_path = self.ui.recovery_save_of_file.text()
 
-        recovery_text = decode_try_2.decode(path, extraction_key)
+        recovery_text = recovery_script.decode(path, extraction_key)
 
         finish = RSA_decryptor.decryption(str(rsa_key), str(recovery_text), str(save_path))
 

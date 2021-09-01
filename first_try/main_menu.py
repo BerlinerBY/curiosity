@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.centralwidget.setStyleSheet("background-image: url('space300x300.jpg');")
+        self.centralwidget.setStyleSheet("background-image: url('style/space300x300.jpg');")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setEnabled(True)
         self.frame.setGeometry(QtCore.QRect(0, 0, 300, 70))

@@ -49,7 +49,7 @@ class UiApplication(object):
         self.minimize_button = QtWidgets.QPushButton(self.hint)
         self.minimize_button.setGeometry(740, 0, 30, 30)
         self.minimize_button.setStyleSheet("QPushButton {"
-                                           "   border-image: url('style/minimize2.png');"
+                                           "   border-image: url('style/minimize2.png');" 
                                            "}"
                                            "QPushButton:hover {"
                                            "   background: rgb(70, 70, 90);"
@@ -154,7 +154,7 @@ class UiApplication(object):
                                  "}")
 
         style_archive_button = str("QPushButton {"
-                                   "    border-image: url('style/archive_icon.png');"
+                                   "    border-image: url('style/archive_icon.png');" 
                                    "    border-radius: 20px;"
                                    "    background-color: Transparent;"
                                    "}"
@@ -268,10 +268,6 @@ class UiApplication(object):
         self.hide_RSA_key.setObjectName("hide_RSA_key")
 
         """
-        page where recovery-algorithm start
-        page where recovery-algorithm start
-        page where recovery-algorithm start
-        page where recovery-algorithm start
         page where recovery-algorithm start
         """
         self.output = QtWidgets.QWidget()
