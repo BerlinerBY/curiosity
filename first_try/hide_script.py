@@ -1,46 +1,37 @@
 import numpy as np
 import cv2
+from textwrap import wrap
 
-"""
-Конечено прикол с помещением всего алгоритма в функцию сработал,
-но лучше попробовать переписать код 
-"""
-def encrypt(adress, text, save_adress):
-    """
-    Участок для работы с введенной фразой
-    """
-    # перевод в ASCII, затем в бинарку
-    text = text
-    text_array = [bin(ord(elem))[2:] for elem in text]
 
-    # проверка на четность символов в бинарном варианте/ и подгонка под 8 знаков
+def hide(address, text, save_address):
+    """
+    address - it is path of container for changing bytes
+    text - it is message from user. the script will process it and convert it to bit form
+    save_address - it is path, name and format of saved image
+    """
+    text_array = np.array([bin(ord(elem))[2:] for elem in text], dtype=object)
+
     for i in range(len(text_array)):
         if len(text_array[i]) < 8:
-            text_array[i] = ('0' * (8 - len(text_array[i]))) + str(text_array[i])
+            text_array[i] = (str('0' * (8 - len(text_array[i])))) + str(text_array[i])
         else:
             continue
 
-    # редактрируем массив фразы из '01001000' в ['01', '00', '10', '00']
-    redaction_text_array = []
-    for i in range(len(text_array)):
-        for j in range(len(text_array[i])):
-            if j % 2 == 0:
-                redaction_text_array.append(text_array[i][j] + text_array[i][j + 1])
-            else:
-                continue
+    redaction_text_array = np.array(['+'], dtype=object)
 
-    # реверс массива фразы для превращения его в стек
-    c = len(redaction_text_array)
-    stec_text_array = []
-    for i in range(c):
-        stec_text_array.append(redaction_text_array.pop())
+    for elem in text_array:
+        if redaction_text_array[0] == '+':
+            redaction_text_array = np.delete(redaction_text_array, 0)
+            element = wrap(elem, 2)
+            redaction_text_array = np.concatenate((redaction_text_array, element), axis=0)
+        else:
+            element = wrap(elem, 2)
+            redaction_text_array = np.concatenate((redaction_text_array, element), axis=0)
 
-    """
-    Решето Эратосфена
-    """
-    mass = [2]
 
     def Eratosfen(n):
+        # Sieve of Eratosthenes
+        mass = [2]
         m = (n - 1) // 2  # // - целочисленное деление
         b = [True] * m
         i, p = 0, 3
@@ -60,109 +51,72 @@ def encrypt(adress, text, save_adress):
             p += 2
         return mass
 
-    """
-    Участок с обработкой изображения
-    """
-
-    img = cv2.imread(adress)
+    '''open image and manipulation of bytes in pixels'''
+    img = cv2.imread(address)
     image = np.array(img)
-    (height, width, c) = image.shape
-    bufer = []
+    height, width, depth = image.shape
 
-    z = Eratosfen(int((height * width * 7) / 20))
+    result_mass = Eratosfen(int((height * width * 7) / 20))  # find
+    step_key = result_mass[-1]
 
-    key = mass[-1]  # ключ_шаг
-    bufer_i = 0  # переменная для рекурсии
+    variable_for_recursion = 0
+    stack_index = 0
 
-    # переписывание в обычный массив виды [пиксель1, пиксель2, пиксель3]
-    for row in list(image):
-        for elem in row:
-            bufer.append(elem)
+    copy_image = np.copy(np.nditer(image))  # make 1D array from 3D
 
-    # карта посещенных пикселей
-    map = ['0' for i in range(len(bufer))]
-    '''
-    карту скорее всего нужно будет удалить, т.к. она не юзается
-    '''
-
-    # рекурсивная функция для обхода массива
-    def func(bufer_i):
-        try:
-            while bufer_i < len(bufer):
-                for j in range(0, len(map)):
-                    if j == bufer_i:
-                        if map[j] == '1':
-                            # улавливатель бага(если он будет)
-                            print("111111111111111111111111111111--------------------1111111")
-                        else:
-                            # вызов функции с обработкой значений
-                            bufer[bufer_i][0] = magic_in_pixel(bufer[bufer_i][0])
-                            bufer[bufer_i][1] = magic_in_pixel(bufer[bufer_i][1])
-                            bufer[bufer_i][2] = magic_in_pixel(bufer[bufer_i][2])
-                            map[j] = '1'
-                    else:
-                        continue
-                if bufer_i == len(bufer) - 1:
-                    bufer_i = key - 1
-                    return func(bufer_i)
-                elif bufer_i + key > len(bufer):
-                    bufer_i = bufer_i + key - len(bufer)
-                    return func(bufer_i)
+    def array_walk(variable_for_recursion, stack_index, redaction_text_array):
+        while variable_for_recursion < len(copy_image):
+            copy_image[variable_for_recursion] = magic_in_pixel(copy_image[variable_for_recursion],
+                                                                redaction_text_array, stack_index)
+            stack_index += 1
+            if stack_index + 1 > len(redaction_text_array):
+                break
+            else:
+                if variable_for_recursion == len(copy_image) - 1:
+                    variable_for_recursion = step_key - 1
+                    return array_walk(variable_for_recursion, stack_index, redaction_text_array)
+                elif variable_for_recursion + step_key > len(copy_image):
+                    variable_for_recursion = variable_for_recursion + step_key - len(copy_image)
+                    return array_walk(variable_for_recursion, stack_index, redaction_text_array)
                 else:
-                    bufer_i += key
-        except IndexError:
-            pass
+                    variable_for_recursion += step_key
 
-    # функция для работы с пикселем
-    def magic_in_pixel(pixel_i):
-        bufer_pixel = bin(pixel_i)[2:]
-        if len(bufer_pixel) < 8:
-            bufer_pixel = ('0' * (8 - len(str(bufer_pixel))) + str(bufer_pixel))
-            if bufer_pixel[-2:] == '00':
+    def magic_in_pixel(functions_value, redaction_text_array, stack_index):
+        value = bin(functions_value)[2:]  # 127 -> 1111 111
+        if len(value) < 8:
+            value = ('0' * (8 - len(str(value))) + str(value))  # 1111 111 -> 0111 1111
+            if value[-2:] == '01':
+                value = bin(int(str(value), 2) - 1)[2:]
+            elif value[-2:] == '10':
+                value = bin(int(str(value), 2) - 2)[2:]
+            elif value[-2:] == '11':
+                value = bin(int(str(value), 2) - 3)[2:]  # 111 1100
+            else:
                 pass
-            elif bufer_pixel[-2:] == '01':
-                bufer_pixel = bin(int(str(bufer_pixel), 2) - 1)[2:]
-            elif bufer_pixel[-2:] == '10':
-                bufer_pixel = bin(int(str(bufer_pixel), 2) - 2)[2:]
-            elif bufer_pixel[-2:] == '11':
-                bufer_pixel = bin(int(str(bufer_pixel), 2) - 3)[2:]
-            bufer_pixel = ('0' * (8 - len(str(bufer_pixel))) + str(bufer_pixel))
         else:
-            if bufer_pixel[-2:] == '00':
+            if value[-2:] == '01':
+                value = bin(int(str(value), 2) - 1)[2:]
+            elif value[-2:] == '10':
+                value = bin(int(str(value), 2) - 2)[2:]
+            elif value[-2:] == '11':
+                value = bin(int(str(value), 2) - 3)[2:]
+            else:
                 pass
-            elif bufer_pixel[-2:] == '01':
-                bufer_pixel = bin(int(str(bufer_pixel), 2) - 1)[2:]
-            elif bufer_pixel[-2:] == '10':
-                bufer_pixel = bin(int(str(bufer_pixel), 2) - 2)[2:]
-            elif bufer_pixel[-2:] == '11':
-                bufer_pixel = bin(int(str(bufer_pixel), 2) - 3)[2:]
-            bufer_pixel = ('0' * (8 - len(str(bufer_pixel))) + str(bufer_pixel))
-        bufer_pixel = int(bin(int(str(bufer_pixel), 2) + int(str(stec_text_array.pop()), 2))[2:], 2)
-        return bufer_pixel
+        value = ('0' * (8 - len(str(value))) + str(value))  # 0111 1100
+        # (0111 1100) + (elem from stack = 01) = 0111 1101
+        return int(bin(int(str(value), 2) + int(str(redaction_text_array[stack_index]), 2))[2:], 2)
 
-    func(bufer_i)
+    array_walk(variable_for_recursion, stack_index, redaction_text_array)
 
-    final_array = []
-    k = 0
-    while k < len(bufer):
-        for i in range(height):
-            arr = []
-            for j in range(width):
-                arr.append(bufer[k])
-                k += 1
-            final_array.append(arr)
+    cv2.imwrite(save_address, np.copy(copy_image.reshape(height, width, depth)))  # make 3D array and save modified image
 
-    last = np.array(final_array)
+    def recovery_key():
+        # recovery key = "step_key,(0\1)(step_key-len(redaction_text_array)"
+        difference = step_key - len(redaction_text_array)
+        if difference < 0:
+            result_key = ',0'.join([str(step_key), str(abs(difference))])
+        else:
+            result_key = ',1'.join([str(step_key), str(abs(difference))])
+        return result_key
 
-    def key_text():
-        raznica = key - len(text_array)
-        last_key = ''
-        if raznica < 0:
-            last_key = ',0'.join([str(key), str(raznica)])
-        elif raznica >= 0:
-            last_key = ',1'.join([str(key), str(raznica)])
-        return last_key
-
-    cv2.imwrite(save_adress, last)  # сохранение картинки
-
-    return key_text()
+    return recovery_key()
