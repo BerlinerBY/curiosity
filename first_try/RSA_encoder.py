@@ -18,11 +18,12 @@ revers_dict_rus_en = {'!': 100, '"': 101, '#': 102, '$': 103, '%': 104, '&': 105
                       'б': 226, 'в': 227, 'г': 228, 'д': 229, 'е': 230, 'ж': 231, 'з': 232, 'и': 233, 'й': 234,
                       'к': 235, 'л': 236, 'м': 237, 'н': 238, 'о': 239, 'п': 240, 'р': 241, 'с': 242, 'т': 243,
                       'у': 244, 'ф': 245, 'х': 246, 'ц': 247, 'ч': 248, 'ш': 249, 'щ': 250, 'ъ': 251, 'ы': 252,
-                      'ь': 253, 'э': 254, 'ю': 255, 'я': 256, ' ': 257}
+                      'ь': 253, 'э': 254, 'ю': 255, 'я': 256, ' ': 257, '–': 258, '‘': 259, '’': 260, "“": 261,
+                      '”': 262}
 
 
 def word_processing(text):
-    text = "".join([str(revers_dict_rus_en.get(elem)) for elem in text])
+    text = ''.join([str(revers_dict_rus_en.get(elem)) for elem in text])
     mass_block = []
 
     start_i = 0
@@ -34,11 +35,11 @@ def word_processing(text):
                 bol = False
                 break
             elif start_i + i > len(text):
-                mass_block.append("1" + text[start_i:])
+                mass_block.append('1' + text[start_i:])
                 bol = False
                 break
             else:
-                mass_block.append("1" + text[start_i: start_i + i])
+                mass_block.append('1' + text[start_i: start_i + i])
                 start_i = start_i + i
         else:
             bol = False

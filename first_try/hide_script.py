@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 from textwrap import wrap
+import pretty_errors
 
 
 def hide(address, text, save_address):
@@ -28,11 +29,10 @@ def hide(address, text, save_address):
             element = wrap(elem, 2)
             redaction_text_array = np.concatenate((redaction_text_array, element), axis=0)
 
-
     def Eratosfen(n):
         # Sieve of Eratosthenes
         mass = [2]
-        m = (n - 1) // 2  # // - целочисленное деление
+        m = int((n - 1) / 2)
         b = [True] * m
         i, p = 0, 3
         while p * p < n:
@@ -60,55 +60,33 @@ def hide(address, text, save_address):
     step_key = result_mass[-1]
 
     variable_for_recursion = 0
-    stack_index = 0
 
     copy_image = np.copy(np.nditer(image))  # make 1D array from 3D
 
-    def array_walk(variable_for_recursion, stack_index, redaction_text_array):
-        while variable_for_recursion < len(copy_image):
-            copy_image[variable_for_recursion] = magic_in_pixel(copy_image[variable_for_recursion],
-                                                                redaction_text_array, stack_index)
-            stack_index += 1
-            if stack_index + 1 > len(redaction_text_array):
-                break
-            else:
-                if variable_for_recursion == len(copy_image) - 1:
-                    variable_for_recursion = step_key - 1
-                    return array_walk(variable_for_recursion, stack_index, redaction_text_array)
-                elif variable_for_recursion + step_key > len(copy_image):
-                    variable_for_recursion = variable_for_recursion + step_key - len(copy_image)
-                    return array_walk(variable_for_recursion, stack_index, redaction_text_array)
-                else:
-                    variable_for_recursion += step_key
-
-    def magic_in_pixel(functions_value, redaction_text_array, stack_index):
+    def lsb(functions_value, elem):
         value = bin(functions_value)[2:]  # 127 -> 1111 111
-        if len(value) < 8:
-            value = ('0' * (8 - len(str(value))) + str(value))  # 1111 111 -> 0111 1111
-            if value[-2:] == '01':
-                value = bin(int(str(value), 2) - 1)[2:]
-            elif value[-2:] == '10':
-                value = bin(int(str(value), 2) - 2)[2:]
-            elif value[-2:] == '11':
-                value = bin(int(str(value), 2) - 3)[2:]  # 111 1100
-            else:
-                pass
+        value = ('0' * (8 - len(str(value))) + str(value))  # 1111 111 -> 0111 1111
+        if value[-2:] == '01':
+            value = bin(int(str(value), 2) - 1)[2:]
+        elif value[-2:] == '10':
+            value = bin(int(str(value), 2) - 2)[2:]
+        elif value[-2:] == '11':
+            value = bin(int(str(value), 2) - 3)[2:]  # 111 1100
         else:
-            if value[-2:] == '01':
-                value = bin(int(str(value), 2) - 1)[2:]
-            elif value[-2:] == '10':
-                value = bin(int(str(value), 2) - 2)[2:]
-            elif value[-2:] == '11':
-                value = bin(int(str(value), 2) - 3)[2:]
-            else:
-                pass
-        value = ('0' * (8 - len(str(value))) + str(value))  # 0111 1100
+            pass
+        value = ('0' * (8 - len(str(value))) + str(value))  # 0111 1100 mb i can delete this string
         # (0111 1100) + (elem from stack = 01) = 0111 1101
-        return int(bin(int(str(value), 2) + int(str(redaction_text_array[stack_index]), 2))[2:], 2)
+        return int(bin(int(str(value), 2) + int(str(elem), 2))[2:], 2)
 
-    array_walk(variable_for_recursion, stack_index, redaction_text_array)
+    for elem in redaction_text_array:
+        copy_image[variable_for_recursion] = lsb(copy_image[variable_for_recursion], elem)
+        if variable_for_recursion + step_key <= len(copy_image):
+            variable_for_recursion += step_key
+        elif variable_for_recursion + step_key > len(copy_image):
+            variable_for_recursion = variable_for_recursion + step_key - len(copy_image)
 
-    cv2.imwrite(save_address, np.copy(copy_image.reshape(height, width, depth)))  # make 3D array and save modified image
+    cv2.imwrite(save_address,
+                np.copy(copy_image.reshape(height, width, depth)))  # make 3D array and save modified image
 
     def recovery_key():
         # recovery key = "step_key,(0\1)(step_key-len(redaction_text_array)"

@@ -1,6 +1,7 @@
 import os
 import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt5.QtGui import QMovie
 import carcass
 import hide_script
 import recovery_script
@@ -46,7 +47,7 @@ class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
         message = self.ui.hide_text.toPlainText()
 
         encrypt_rsa_text, rsa_key = RSA_encoder.RSA(message)
-        extraction_key = hide_script.encrypt('%s' % path, '%s' % encrypt_rsa_text, '%s' % save_path)
+        extraction_key = hide_script.hide('%s' % path, '%s' % encrypt_rsa_text, '%s' % save_path)
 
         self.ui.hide_extraction_key.setText(str(extraction_key))
         self.ui.hide_RSA_key.setText(str(rsa_key))
@@ -85,7 +86,6 @@ class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
         file_path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", "", "Image Files(*.png)",
                                                              options=options)
         if file_path:
-            print(file_path)
             if '.png' in file_path:
                 self.ui.hide_save_of_file.setText(file_path)
             else:
@@ -98,7 +98,6 @@ class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Find container", "", "Image Files(*.png *.jpg)",
                                                              options=options)
         if file_path:
-            print(file_path)
             self.ui.recovery_path_to_container.setText(file_path)
 
     def recovery_save_of_container(self):
@@ -107,7 +106,6 @@ class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
         file_path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", "", "Text Files(*.txt)",
                                                              options=options)
         if file_path:
-            print(file_path)
             if ".txt" in file_path:
                 self.ui.recovery_save_of_file.setText(file_path)
             else:

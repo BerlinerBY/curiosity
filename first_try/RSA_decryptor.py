@@ -17,10 +17,11 @@ dict_alphabet_rus_en = {100: '!', 101: '"', 102: '#', 103: '$', 104: '%', 105: '
                         228: 'г', 229: 'д', 230: 'е', 231: 'ж', 232: 'з', 233: 'и', 234: 'й', 235: 'к',
                         236: 'л', 237: 'м', 238: 'н', 239: 'о', 240: 'п', 241: 'р', 242: 'с', 243: 'т',
                         244: 'у', 245: 'ф', 246: 'х', 247: 'ц', 248: 'ч', 249: 'ш', 250: 'щ', 251: 'ъ',
-                        252: 'ы', 253: 'ь', 254: 'э', 255: 'ю', 256: 'я', 257: ' '}
+                        252: 'ы', 253: 'ь', 254: 'э', 255: 'ю', 256: 'я', 257: ' ', 258: '–', 259: '‘',
+                        260: '’', 261: '“', 262: '”'}
 
 
-def decryption(rsa_key, text, save_adress):
+def decryption(rsa_key, text, save_address):
     key_array = rsa_key.split(",")
     mod = int(key_array[0])
     d = 0
@@ -34,33 +35,19 @@ def decryption(rsa_key, text, save_adress):
     array = []
 
     for elem in mass:
-        print(str(pow(int(elem), d, mod))[1:])
         array.append(str(pow(int(elem), d, mod))[1:])
 
     text = "".join(array)
 
     mass_block = []
-    start_i = 0
-    bol = True
-    while bol:
-        while start_i <= len(text):
-            i = 3
-            if start_i == len(text):
-                bol = False
-                break
-            elif start_i + i > len(text):
-                mass_block.append(dict_alphabet_rus_en.get(int(text[start_i:])))
-                bol = False
-                break
-            else:
-                mass_block.append(dict_alphabet_rus_en.get(int(text[start_i: start_i + i])))
-                start_i = start_i + i
-        else:
-            bol = False
+    i = 0
+    while i < len(text):
+        mass_block.append(dict_alphabet_rus_en.get(int(text[i: i + 3])))
+        i += 3
 
-    file = open(save_adress, 'w')
+    file = open(save_address, 'w')
     file.write("".join(mass_block))
     file.close()
 
-    return 'finich'
+    return 'finish'
 

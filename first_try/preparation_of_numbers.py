@@ -39,10 +39,10 @@ def rashirenii_alg_evclid(func_eiler, e):
         return mass_xy[-1][1]
 
 
-def erastofen():
+def eratosfen():
     mass = [2]
     n = 5000
-    m = (n - 1) // 2  # // - целочисленное деление
+    m = (n - 1) // 2
     b = [True] * m
     i, p = 0, 3
     while p * p < n:
@@ -63,7 +63,7 @@ def erastofen():
 
 
 def proverka_na_prostih(n):
-    mass = erastofen()
+    mass = eratosfen()
     for elem in mass:
         if n % elem == 0:
             return False
@@ -122,9 +122,9 @@ def simplicity_test(n):
 def generate():
     n = random.randint(1000000, 10000000)
     if n % 2 == 0:
-        return generate()  # вызываем рекурсию
+        return generate()  
     else:
-        return n  #
+        return n  
 
 
 def scan_prime_number():
