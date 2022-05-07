@@ -75,7 +75,6 @@ class UiApplication(object):
                                    "    padding-bottom: 10px;"
                                    "    padding-left: 3px;"
                                    "}")
-
         self.windows.setTabPosition(QtWidgets.QTabWidget.West)
         self.windows.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.windows.setTabBarAutoHide(False)  # i can delete this string, but i don`t use this function
@@ -145,9 +144,12 @@ class UiApplication(object):
                            "    background: rgb(255, 170, 0);"
                            "}")
 
+        trash_icon = QtGui.QIcon('style/trash_icon.png')
+        archive_icon = QtGui.QIcon('style/archive_icon.png')
+
         self.input = QtWidgets.QWidget()
         self.input.setStyleSheet("QWidget {"
-                                 "    background-color: rgb(35, 40, 70);"
+                                 "    background-color: #3d4fa1;"  # rgb(35, 40, 70)
                                  "}")
         self.input.setObjectName("input")
         self.windows.addTab(self.input, "")
@@ -161,14 +163,14 @@ class UiApplication(object):
         self.hide_clear_path = QtWidgets.QPushButton(self.input)
         self.hide_clear_path.setGeometry(QtCore.QRect(625, 30, 45, 45))
         self.hide_clear_path.setStyleSheet(style_button)
-        self.hide_clear_path.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.hide_clear_path.setIcon(trash_icon)
         self.hide_clear_path.setIconSize(QtCore.QSize(45, 45))
         self.hide_clear_path.setObjectName("hide_clear_path ")
 
         self.hide_open_container = QtWidgets.QPushButton(self.input)
         self.hide_open_container.setGeometry(QtCore.QRect(675, 30, 45, 45))
         self.hide_open_container.setStyleSheet(style_button)
-        self.hide_open_container.setIcon(QtGui.QIcon('style/archive_icon.png'))
+        self.hide_open_container.setIcon(archive_icon)
         self.hide_open_container.setIconSize(QtCore.QSize(45, 45))
         self.hide_open_container.setObjectName("hide_open_container")
 
@@ -181,14 +183,14 @@ class UiApplication(object):
         self.hide_clear_save_of_file = QtWidgets.QPushButton(self.input)
         self.hide_clear_save_of_file.setGeometry(QtCore.QRect(625, 105, 45, 45))
         self.hide_clear_save_of_file.setStyleSheet(style_button)
-        self.hide_clear_save_of_file.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.hide_clear_save_of_file.setIcon(trash_icon)
         self.hide_clear_save_of_file.setIconSize(QtCore.QSize(45, 45))
         self.hide_clear_save_of_file.setObjectName("hide_clear_save_of_file")
 
         self.hide_save_of_file_button = QtWidgets.QPushButton(self.input)
         self.hide_save_of_file_button.setGeometry(QtCore.QRect(675, 105, 45, 45))
         self.hide_save_of_file_button.setStyleSheet(style_button)
-        self.hide_save_of_file_button.setIcon(QtGui.QIcon('style/archive_icon.png'))
+        self.hide_save_of_file_button.setIcon(archive_icon)
         self.hide_save_of_file_button.setIconSize(QtCore.QSize(45, 45))
         self.hide_save_of_file_button.setObjectName("hide_save_of_file_button")
 
@@ -206,15 +208,25 @@ class UiApplication(object):
         self.hide_clear_text = QtWidgets.QPushButton(self.input)
         self.hide_clear_text.setGeometry(QtCore.QRect(625, 180, 95, 120))
         self.hide_clear_text.setStyleSheet(style_button)
-        self.hide_clear_text.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.hide_clear_text.setIcon(trash_icon)
         self.hide_clear_text.setIconSize(QtCore.QSize(60, 60))
         self.hide_clear_text.setObjectName("hide_clear_text")
 
         # подключить панель прогресса
         self.hide_progress = QtWidgets.QProgressBar(self.input)
         self.hide_progress.setGeometry(30, 330, 590, 50)
-        self.hide_progress.setStyleSheet("background: rgb(28, 181,10);"
-                                         "border-radius: 15px;")
+        self.hide_progress.setMaximum(100)
+        self.hide_progress.setStyleSheet("QProgressBar {"
+                                         "  background: #6a839c;"
+                                         "  border-radius: 15px;"
+                                         "  color: black;"
+                                         "  text-align: center;"
+                                         "  font-size: 20px;"
+                                         "}"
+                                         "QProgressBar::chunk {"
+                                         "  background-color: #69babf;"
+                                         "  border-radius :15px;"
+                                         "}")
         self.hide_progress.setObjectName("hide_progress")
 
         self.hide_button = QtWidgets.QPushButton(self.input)
@@ -262,7 +274,7 @@ class UiApplication(object):
         """
         self.output = QtWidgets.QWidget()
         self.output.setStyleSheet("QWidget {"
-                                  "    background-color: rgb(35, 40, 70);"
+                                  "    background-color: #3d4fa1;"
                                   "}")
         self.output.setObjectName("output")
         self.windows.addTab(self.output, "")
@@ -278,7 +290,7 @@ class UiApplication(object):
         self.recovery_clear_path = QtWidgets.QPushButton(self.output)
         self.recovery_clear_path.setGeometry(QtCore.QRect(625, 30, 45, 45))
         self.recovery_clear_path.setStyleSheet(style_button)
-        self.recovery_clear_path.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.recovery_clear_path.setIcon(trash_icon)
         self.recovery_clear_path.setIconSize(QtCore.QSize(45, 45))
         self.recovery_clear_path.setObjectName("recovery_clear_path")
 
@@ -286,7 +298,7 @@ class UiApplication(object):
         self.recovery_open_container = QtWidgets.QPushButton(self.output)
         self.recovery_open_container.setGeometry(QtCore.QRect(675, 30, 45, 45))
         self.recovery_open_container.setStyleSheet(style_button)
-        self.recovery_open_container.setIcon(QtGui.QIcon('style/archive_icon.png'))
+        self.recovery_open_container.setIcon(archive_icon)
         self.recovery_open_container.setIconSize(QtCore.QSize(45, 45))
         self.recovery_open_container.setObjectName("recovery_open_container")
 
@@ -301,7 +313,7 @@ class UiApplication(object):
         self.recovery_clear_extraction_key = QtWidgets.QPushButton(self.output)
         self.recovery_clear_extraction_key.setGeometry(QtCore.QRect(625, 105, 95, 45))
         self.recovery_clear_extraction_key.setStyleSheet(style_button)
-        self.recovery_clear_extraction_key.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.recovery_clear_extraction_key.setIcon(trash_icon)
         self.recovery_clear_extraction_key.setIconSize(QtCore.QSize(45, 45))
         self.recovery_clear_extraction_key.setObjectName("recovery_clear_extraction_key")
 
@@ -316,7 +328,7 @@ class UiApplication(object):
         self.recovery_clear_RSA_key = QtWidgets.QPushButton(self.output)
         self.recovery_clear_RSA_key.setGeometry(QtCore.QRect(625, 180, 95, 45))
         self.recovery_clear_RSA_key.setStyleSheet(style_button)
-        self.recovery_clear_RSA_key.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.recovery_clear_RSA_key.setIcon(trash_icon)
         self.recovery_clear_RSA_key.setIconSize(QtCore.QSize(45, 45))
         self.recovery_clear_RSA_key.setObjectName("recovery_clear_RSA_key")
 
@@ -331,7 +343,7 @@ class UiApplication(object):
         self.recovery_clean_save_of_file = QtWidgets.QPushButton(self.output)
         self.recovery_clean_save_of_file.setGeometry(QtCore.QRect(625, 255, 45, 45))
         self.recovery_clean_save_of_file.setStyleSheet(style_button)
-        self.recovery_clean_save_of_file.setIcon(QtGui.QIcon('style/trash_icon.png'))
+        self.recovery_clean_save_of_file.setIcon(trash_icon)
         self.recovery_clean_save_of_file.setIconSize(QtCore.QSize(45, 45))
         self.recovery_clean_save_of_file.setObjectName("recovery_clean_save_of_file")
 
@@ -339,7 +351,7 @@ class UiApplication(object):
         self.recovery_open_file = QtWidgets.QPushButton(self.output)
         self.recovery_open_file.setGeometry(QtCore.QRect(675, 255, 45, 45))
         self.recovery_open_file.setStyleSheet(style_button)
-        self.recovery_open_file.setIcon(QtGui.QIcon('style/archive_icon.png'))
+        self.recovery_open_file.setIcon(archive_icon)
         self.recovery_open_file.setIconSize(QtCore.QSize(45, 45))
         self.recovery_open_file.setObjectName("recovery_open_file")
 
@@ -349,8 +361,8 @@ class UiApplication(object):
         self.recovery_Button.setStyleSheet("QPushButton {"
                                            "    border-radius: 20px;"
                                            "    border: 1px solid;"
-                                           "    border-color: rgb(0, 0, 0); "   
-                                           "    background-color: rgb(60,60,80);"#Transparent;"
+                                           "    border-color: rgb(0, 0, 0); "
+                                           "    background-color: rgb(60,60,80);"  # Transparent;"
                                            "    font-size: 30px;"
                                            "}"
                                            "QPushButton:hover:!pressed {"
@@ -360,8 +372,18 @@ class UiApplication(object):
 
         self.recovery_progress = QtWidgets.QProgressBar(self.output)
         self.recovery_progress.setGeometry(30, 410, 690, 50)
-        self.recovery_progress.setStyleSheet("background: rgb(28, 181,10);"
-                                             "border-radius: 15px;")
+        self.recovery_progress.setMaximum(100)
+        self.recovery_progress.setStyleSheet("QProgressBar {"
+                                             "  background: #6a839c;"
+                                             "  border-radius: 15px;"
+                                             "  color: black;"
+                                             "  text-align: center;"
+                                             "  font-size: 20px;"
+                                             "}"
+                                             "QProgressBar::chunk {"
+                                             "  background-color: #69babf;"
+                                             "  border-radius :15px;"
+                                             "}")
         self.recovery_progress.setObjectName("recovery_progress")
 
         self.notification = QtWidgets.QTextEdit(self.output)

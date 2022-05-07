@@ -1,12 +1,12 @@
 import os
 import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
-from PyQt5.QtGui import QMovie
+from PyQt5.QtCore import pyqtSignal
 import carcass
 import hide_script
 import recovery_script
-import RSA_encoder
 import RSA_decryptor
+import RSA_encoder
 import pretty_errors
 import time
 
@@ -38,38 +38,51 @@ class AppCore(QtWidgets.QMainWindow, carcass.UiApplication):
         self.ui.recovery_open_file.clicked.connect(lambda: self.recovery_save_of_container())
 
         # buttons of run script
-        self.ui.hide_button.clicked.connect(lambda: self.start_hide())
-        self.ui.recovery_Button.clicked.connect(lambda: self.start_recovery())
+        # self.ui.hide_button.clicked.connect(lambda: self.start_hide())
+        # self.ui.recovery_Button.clicked.connect(lambda: self.start_recovery())
+        self.ui.hide_button.clicked.connect(lambda: self.hide_button())
+        self.ui.recovery_Button.clicked.connect(lambda: self.recovery_button())
 
-    def start_hide(self):
-        path = self.ui.hide_path_to_container.text()
-        save_path = self.ui.hide_save_of_file.text()
-        message = self.ui.hide_text.toPlainText()
-
-        encrypt_rsa_text, rsa_key = RSA_encoder.RSA(message)
-        extraction_key = hide_script.hide('%s' % path, '%s' % encrypt_rsa_text, '%s' % save_path)
-
-        self.ui.hide_extraction_key.setText(str(extraction_key))
-        self.ui.hide_RSA_key.setText(str(rsa_key))
+    def hide_button(self):
+        self.hide_worker = hide_script.HideScript(self.ui.hide_path_to_container.text(),
+                                                  self.ui.hide_save_of_file.text(),
+                                                  self.ui.hide_text.toPlainText())
+        self.hide_worker.count_percent.connect(self.on_hide_count_percent)
+        self.hide_worker.global_extraction_key.connect(self.print_extraction_key)
+        self.hide_worker.global_rsa_key.connect(self.print_rsa_key)
+        self.hide_worker.start()
 
         self.ui.hide_path_to_container.clear()
         self.ui.hide_text.clear()
 
-    def start_recovery(self):
-        path = self.ui.recovery_path_to_container.text()
-        extraction_key = self.ui.recovery_extraction_key.text()
-        rsa_key = self.ui.recovery_RSA_key.text()
-        save_path = self.ui.recovery_save_of_file.text()
+    def on_hide_count_percent(self, value):
+        self.ui.hide_progress.setValue(value)
 
-        recovery_text = recovery_script.decode(path, extraction_key)
+    def print_extraction_key(self, value):
+        self.ui.hide_extraction_key.setText(value)
 
-        finish = RSA_decryptor.decryption(str(rsa_key), str(recovery_text), str(save_path))
+    def print_rsa_key(self, value):
+        self.ui.hide_RSA_key.setText(value)
 
-        self.ui.notification.setText(str(finish))
+    def recovery_button(self):
+        self.recovery_worker = recovery_script.RecoveryScript(self.ui.recovery_path_to_container.text(),
+                                                              self.ui.recovery_extraction_key.text(),
+                                                              self.ui.recovery_RSA_key.text(),
+                                                              self.ui.recovery_save_of_file.text())
+
+        self.recovery_worker.count_percent.connect(self.on_recovery_count_percent)
+        self.recovery_worker.global_finish.connect(self.print_finish)
+        self.recovery_worker.start()
 
         self.ui.recovery_path_to_container.clear()
         self.ui.recovery_extraction_key.clear()
         self.ui.recovery_RSA_key.clear()
+
+    def on_recovery_count_percent(self, value):
+        self.ui.recovery_progress.setValue(value)
+
+    def print_finish(self, value):
+        self.ui.notification.setText(value)
 
     def hide_open_container(self):
         options = QtWidgets.QFileDialog.Options()
